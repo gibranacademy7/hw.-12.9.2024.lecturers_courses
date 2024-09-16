@@ -182,17 +182,35 @@ g. הצג את רשימת כל הקורסים והמרצה המשובץ )היכ�
 בפרטי המרצה( ביחד עם כל המרצים והקורס שאותם הם מלמדים )היכן שהמרצה איננו
 משובץ לקורס , יופיע NULL בפרטי הקורס( . רמז: JOIN OUTER FULL
 
-SELECT course_id, course_name, first_name, last_name, lecturer_id
-FROM lecturers
-LEFT JOIN courses
-ON lecturer_id = lecturer_id
+-- قائمة الكورسات مع المدرسين
+SELECT
+    c.course_id,
+    c.course_name,
+    l.first_name,
+    l.last_name,
+    l.lecturer_id
+FROM
+    courses c
+LEFT OUTER JOIN
+    lecturers l
+ON
+    c.lecturer_id = l.lecturer_id
 
 UNION
 
-SELECT courses_id, course_name, first_name, last_name, lecturer_id
-FROM courses
-LEFT JOIN lecturers
-ON lecturer_id = lecturer_id
+SELECT
+    c.course_id,
+    c.course_name,
+    l.first_name,
+    l.last_name,
+    l.lecturer_id
+FROM
+    lecturers l
+LEFT OUTER JOIN
+    courses c
+ON
+    l.lecturer_id = c.lecturer_id;
+
 -----------------------------------------------
 
 h. הצג רשימה בה כל מרצה מלמד את כל אחד מהקורסים
